@@ -1,6 +1,19 @@
-/**
- * Implement Gatsby's SSR (Server Side Rendering) APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/ssr-apis/
- */
-// You can delete this file if you're not using it
+import React from 'react'
+
+export const onRenderBody = (
+  { setPostBodyComponents },
+  pluginOptions
+) => {
+  setPostBodyComponents([
+    <script
+      dangerouslySetInnerHTML={{
+        __html: [
+          'var head = document.head || document.getElementsByTagName("head")[0];',
+          'var script = document.createElement("script");',
+          `script.setAttribute("src", "${pluginOptions.url}${pluginOptions.nonInteractive ? '?non_interactive' : ''}")`,
+          'head.appendChild(script);',
+        ].join(process.env.NODE_ENV === 'production' ? '' : '\n'),
+      }}
+    />,
+  ])
+}
