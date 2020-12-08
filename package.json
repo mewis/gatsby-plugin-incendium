@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-plugin-incendium",
+  "name": "@mewis/gatsby-plugin-incendium",
   "version": "0.0.1",
   "description": "Easily add incendium ai to your Gatsby site",
   "main": "index.js",
@@ -16,5 +16,14 @@
   "license": "0BSD",
   "dependencies": {
     "react": "^17.0.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mewis/gatsby-plugin-incendium.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mewis/gatsby-plugin-incendium/issues"
+  },
+  "homepage": "https://github.com/mewis/gatsby-plugin-incendium#readme"
 }
