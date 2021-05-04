@@ -16,7 +16,8 @@
   "author": "Lewis Bayfield <bassymew@gmail.com>",
   "license": "0BSD",
   "dependencies": {
-    "react": "^17.0.1"
+    "react": "^17.0.1",
+    "@babel/runtime": "^7.14.0"
   },
   "devDependencies": {
     "babel-preset-gatsby-package": "^1.4.0",
