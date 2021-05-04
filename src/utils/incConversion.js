@@ -1,4 +1,4 @@
-export default incConversion = async (target) => {
+export const incConversion = async (target) => {
   if (!window.FIREFLY || !window.FIREFLY.conversion_configs) {
     return null;
   }

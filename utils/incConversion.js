@@ -3,13 +3,13 @@
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
 exports.__esModule = true;
-exports.default = void 0;
+exports.incConversion = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _default = incConversion = /*#__PURE__*/function () {
+var incConversion = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee(target) {
     var conversion, key;
     return _regenerator.default.wrap(function _callee$(_context) {
@@ -57,4 +57,4 @@ var _default = incConversion = /*#__PURE__*/function () {
   };
 }();
 
-exports.default = _default;
+exports.incConversion = incConversion;

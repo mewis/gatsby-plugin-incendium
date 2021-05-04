@@ -1,1 +1,1 @@
-export { default as incConversion } from "./utils/incConversion";
+export { incConversion } from "./utils/incConversion";
