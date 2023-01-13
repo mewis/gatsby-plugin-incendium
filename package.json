@@ -1,6 +1,6 @@
 {
   "name": "@mewis/gatsby-plugin-incendium",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Easily add incendium ai to your Gatsby site",
   "main": "index.js",
   "scripts": {

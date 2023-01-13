@@ -11,7 +11,7 @@ var onRenderBody = function onRenderBody(_ref, pluginOptions) {
   var setPostBodyComponents = _ref.setPostBodyComponents;
   setPostBodyComponents([/*#__PURE__*/_react.default.createElement("script", {
     dangerouslySetInnerHTML: {
-      __html: ['var head = document.head || document.getElementsByTagName("head")[0];', 'var script = document.createElement("script");', "script.setAttribute(\"src\", \"" + pluginOptions.url + (pluginOptions.nonInteractive ? '?non_interactive' : '') + "\");", 'head.appendChild(script);'].join(process.env.NODE_ENV === 'production' ? '' : '\n')
+      __html: ['var head = document.head || document.getElementsByTagName("head")[0];', 'var script = document.createElement("script");', "script.setAttribute(\"src\", \"" + pluginOptions.url + "?no_initial=true" + (pluginOptions.nonInteractive ? "&non_interactive" : "") + "\");", "head.appendChild(script);"].join(process.env.NODE_ENV === "production" ? "" : "\n")
     }
   })]);
 };
