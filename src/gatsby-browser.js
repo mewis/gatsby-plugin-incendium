@@ -6,7 +6,7 @@ export const onRouteUpdate = () => {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           window.inc("send_pageview_meta");
-          setTimeout(() => window.inc("run", true), t * 2);
+          setTimeout(() => window.inc("run", false), t * 2);
         });
       });
     } else {
@@ -15,7 +15,7 @@ export const onRouteUpdate = () => {
         window.inc("send_pageview_meta");
       }, t * 2);
       setTimeout(() => {
-        window.inc("run", true);
+        window.inc("run", false);
       }, t * 4);
     }
   }

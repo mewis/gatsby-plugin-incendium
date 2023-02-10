@@ -13,7 +13,7 @@ var onRouteUpdate = function onRouteUpdate() {
         requestAnimationFrame(function () {
           window.inc("send_pageview_meta");
           setTimeout(function () {
-            return window.inc("run", true);
+            return window.inc("run", false);
           }, t * 2);
         });
       });
@@ -23,7 +23,7 @@ var onRouteUpdate = function onRouteUpdate() {
         window.inc("send_pageview_meta");
       }, t * 2);
       setTimeout(function () {
-        window.inc("run", true);
+        window.inc("run", false);
       }, t * 4);
     }
   }

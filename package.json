@@ -1,11 +1,11 @@
 {
   "name": "@mewis/gatsby-plugin-incendium",
-  "version": "0.0.9",
+  "version": "0.0.16",
   "description": "Easily add incendium ai to your Gatsby site",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "cross-env NODE_ENV=production npm run build",
+    "test": "jest",
+    "prepare": "cross-env NODE_ENV=production jest && npm run build",
     "build": "babel src --out-dir . --ignore \"**/__tests__\""
   },
   "keywords": [
@@ -16,13 +16,15 @@
   "author": "Lewis Bayfield <bassymew@gmail.com>",
   "license": "0BSD",
   "dependencies": {
-    "react": "^17.0.1",
-    "@babel/runtime": "^7.14.0"
+    "@babel/runtime": "^7.14.0",
+    "@testing-library/react": "^13.4.0",
+    "jest": "^29.4.2",
+    "react": "^17.0.1"
   },
   "devDependencies": {
-    "babel-preset-gatsby-package": "^1.4.0",
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.14.0",
+    "babel-preset-gatsby-package": "^1.4.0",
     "cross-env": "^7.0.3"
   },
   "peerDependencies": {
