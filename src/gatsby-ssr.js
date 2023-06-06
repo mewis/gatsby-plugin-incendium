@@ -16,6 +16,8 @@ export const onRenderBody = ({ setPostBodyComponents }, pluginOptions) => {
                 'var script = document.createElement("script");',
                 `script.setAttribute("src", "${option.url}?no_initial=true${
                   option.nonInteractive ? "&non_interactive" : ""
+                }${option.cookieless ? "&cookieless" : ""}${
+                  option.debug ? "&debug" : ""
                 }${namespace !== "" ? `&namespace=${namespace}` : ""}");`,
                 "head.appendChild(script);",
               ].join(process.env.NODE_ENV === "production" ? "" : "\n"),
@@ -33,6 +35,8 @@ export const onRenderBody = ({ setPostBodyComponents }, pluginOptions) => {
             'var script = document.createElement("script");',
             `script.setAttribute("src", "${pluginOptions.url}?no_initial=true${
               pluginOptions.nonInteractive ? "&non_interactive" : ""
+            }${pluginOptions.cookieless ? "&cookieless" : ""}${
+              pluginOptions.debug ? "&debug" : ""
             }${
               pluginOptions.namespace
                 ? `&namespace=${pluginOptions.namespace}`

@@ -15,14 +15,14 @@ var onRenderBody = function onRenderBody(_ref, pluginOptions) {
       var option = pluginOptions.namespaced[namespace];
       return /*#__PURE__*/_react.default.createElement("script", {
         dangerouslySetInnerHTML: {
-          __html: ['var head = document.head || document.getElementsByTagName("head")[0];', 'var script = document.createElement("script");', "script.setAttribute(\"src\", \"" + option.url + "?no_initial=true" + (option.nonInteractive ? "&non_interactive" : "") + (namespace !== "" ? "&namespace=" + namespace : "") + "\");", "head.appendChild(script);"].join(process.env.NODE_ENV === "production" ? "" : "\n")
+          __html: ['var head = document.head || document.getElementsByTagName("head")[0];', 'var script = document.createElement("script");', "script.setAttribute(\"src\", \"" + option.url + "?no_initial=true" + (option.nonInteractive ? "&non_interactive" : "") + (option.cookieless ? "&cookieless" : "") + (option.debug ? "&debug" : "") + (namespace !== "" ? "&namespace=" + namespace : "") + "\");", "head.appendChild(script);"].join(process.env.NODE_ENV === "production" ? "" : "\n")
         }
       });
     }));
   } else {
     setPostBodyComponents([/*#__PURE__*/_react.default.createElement("script", {
       dangerouslySetInnerHTML: {
-        __html: ['var head = document.head || document.getElementsByTagName("head")[0];', 'var script = document.createElement("script");', "script.setAttribute(\"src\", \"" + pluginOptions.url + "?no_initial=true" + (pluginOptions.nonInteractive ? "&non_interactive" : "") + (pluginOptions.namespace ? "&namespace=" + pluginOptions.namespace : "") + "\");", "head.appendChild(script);"].join(process.env.NODE_ENV === "production" ? "" : "\n")
+        __html: ['var head = document.head || document.getElementsByTagName("head")[0];', 'var script = document.createElement("script");', "script.setAttribute(\"src\", \"" + pluginOptions.url + "?no_initial=true" + (pluginOptions.nonInteractive ? "&non_interactive" : "") + (pluginOptions.cookieless ? "&cookieless" : "") + (pluginOptions.debug ? "&debug" : "") + (pluginOptions.namespace ? "&namespace=" + pluginOptions.namespace : "") + "\");", "head.appendChild(script);"].join(process.env.NODE_ENV === "production" ? "" : "\n")
       }
     })]);
   }
