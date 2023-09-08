@@ -4,29 +4,18 @@ exports.__esModule = true;
 exports.onRouteUpdate = void 0;
 
 var onRouteUpdate = function onRouteUpdate() {
-  // there does not seem to be a way in gatsby to run "before page change"
-  var t = 16;
-
-  if (typeof window.inc == "function") {
-    if ("requestAnimationFrame" in window) {
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          window.inc("send_pageview_meta");
-          setTimeout(function () {
-            return window.inc("run", false);
-          }, t * 2);
-        });
-      });
+  var checkForScript = function checkForScript() {
+    if (typeof window.inc !== "undefined") {
+      window.inc("send_pageview_meta");
+      window.inc("run", false);
     } else {
-      // Delay by 32ms to simulate 2 requestOnAnimationFrame calls
-      setTimeout(function () {
-        window.inc("send_pageview_meta");
-      }, t * 2);
-      setTimeout(function () {
-        window.inc("run", false);
-      }, t * 4);
+      // Script not loaded yet, check again after a short delay
+      setTimeout(checkForScript, 100);
     }
-  }
+  }; // Start checking for incendium script
+
+
+  checkForScript();
 };
 
 exports.onRouteUpdate = onRouteUpdate;
