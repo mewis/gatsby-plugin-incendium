@@ -1,51 +1,49 @@
 import React from "react";
+import { oneLine, stripIndent } from "common-tags";
 
-export const onRenderBody = ({ setPostBodyComponents }, pluginOptions) => {
+const generateIncendiumScript = (pluginOptions, namespace) => stripIndent`
+(function(w,d,s){
+  var f=d.getElementsByTagName(s)[0];
+  j=d.createElement(s);
+  j.async=true;
+  j.src='${pluginOptions.url}?no_initial=true${
+  pluginOptions.cookieless ? "&cookieless" : ""
+}${pluginOptions.debug ? "&debug" : ""}${
+  namespace ? `&namespace=${namespace}` : ""
+}';
+  f.parentNode.insertBefore(j,f);
+})(window,document,'script');`;
+
+export const onRenderBody = ({ setHeadComponents }, pluginOptions) => {
+  const inlineScripts = [];
+
   if (
     pluginOptions.namespaced &&
     Object.keys(pluginOptions.namespaced).length > 0
   ) {
-    setPostBodyComponents(
-      Object.keys(pluginOptions.namespaced).map((namespace) => {
-        const option = pluginOptions.namespaced[namespace];
-        return (
-          <script
-            dangerouslySetInnerHTML={{
-              __html: [
-                'var head = document.head || document.getElementsByTagName("head")[0];',
-                'var script = document.createElement("script");',
-                `script.setAttribute("src", "${option.url}?no_initial=true${
-                  option.nonInteractive ? "&non_interactive" : ""
-                }${option.cookieless ? "&cookieless" : ""}${
-                  option.debug ? "&debug" : ""
-                }${namespace !== "" ? `&namespace=${namespace}` : ""}");`,
-                "head.appendChild(script);",
-              ].join(process.env.NODE_ENV === "production" ? "" : "\n"),
-            }}
-          />
-        );
-      })
-    );
+    Object.keys(pluginOptions.namespaced).forEach((namespace) => {
+      let key = `incendium=${namespace}`;
+      const option = pluginOptions.namespaced[namespace];
+      inlineScripts.push(
+        <script
+          key={key}
+          dangerouslySetInnerHTML={{
+            __html: oneLine`
+              ${generateIncendiumScript(option, namespace)}`,
+          }}
+        />
+      );
+    });
   } else {
-    setPostBodyComponents([
+    inlineScripts.push(
       <script
+        key="incendium"
         dangerouslySetInnerHTML={{
-          __html: [
-            'var head = document.head || document.getElementsByTagName("head")[0];',
-            'var script = document.createElement("script");',
-            `script.setAttribute("src", "${pluginOptions.url}?no_initial=true${
-              pluginOptions.nonInteractive ? "&non_interactive" : ""
-            }${pluginOptions.cookieless ? "&cookieless" : ""}${
-              pluginOptions.debug ? "&debug" : ""
-            }${
-              pluginOptions.namespace
-                ? `&namespace=${pluginOptions.namespace}`
-                : ""
-            }");`,
-            "head.appendChild(script);",
-          ].join(process.env.NODE_ENV === "production" ? "" : "\n"),
+          __html: oneLine`
+          ${generateIncendiumScript(pluginOptions, pluginOptions.namespace)}`,
         }}
-      />,
-    ]);
+      />
+    );
   }
+  setHeadComponents(inlineScripts);
 };
