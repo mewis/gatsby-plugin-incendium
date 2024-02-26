@@ -6,28 +6,26 @@ describe(`gatsby-plugin-incendium`, () => {
       describe(`standard`, () => {
         const setup = (options) => {
           const setHeadComponents = jest.fn();
-          const setPostBodyComponents = jest.fn();
 
           options = Object.assign({}, options);
 
-          onRenderBody({ setHeadComponents, setPostBodyComponents }, options);
+          onRenderBody({ setHeadComponents }, options);
 
           return {
             setHeadComponents,
-            setPostBodyComponents,
           };
         };
 
-        it(`setPostBodyComponents called with stanard setup`, () => {
-          const { setPostBodyComponents } = setup({
+        it(`setHeadComponents called with stanard setup`, () => {
+          const { setHeadComponents } = setup({
             url: "",
           });
 
-          expect(setPostBodyComponents).toHaveBeenCalled();
+          expect(setHeadComponents).toHaveBeenCalled();
         });
 
-        it(`setPostBodyComponents called with namespaced`, () => {
-          const { setPostBodyComponents } = setup({
+        it(`setHeadComponents called with namespaced`, () => {
+          const { setHeadComponents } = setup({
             url: "astre",
             namespaced: {
               a: {
@@ -39,16 +37,16 @@ describe(`gatsby-plugin-incendium`, () => {
             },
           });
 
-          expect(setPostBodyComponents).toHaveBeenCalled();
-          const result = JSON.stringify(setPostBodyComponents.mock.calls[0][0]);
+          expect(setHeadComponents).toHaveBeenCalled();
+          const result = JSON.stringify(setHeadComponents.mock.calls[0][0]);
 
           expect(result).toMatch(/a\?no_initial/);
           expect(result).toMatch(/namespace=a/);
           expect(result).toMatch(/b\?no_initial/);
           expect(result).toMatch(/namespace=b/);
         });
-        it(`setPostBodyComponents called with namespaced and empty key`, () => {
-          const { setPostBodyComponents } = setup({
+        it(`setHeadComponents called with namespaced and empty key`, () => {
+          const { setHeadComponents } = setup({
             url: "",
             namespaced: {
               test1: {
@@ -60,8 +58,8 @@ describe(`gatsby-plugin-incendium`, () => {
             },
           });
 
-          expect(setPostBodyComponents).toHaveBeenCalled();
-          const result = JSON.stringify(setPostBodyComponents.mock.calls[0][0]);
+          expect(setHeadComponents).toHaveBeenCalled();
+          const result = JSON.stringify(setHeadComponents.mock.calls[0][0]);
 
           expect(result).toMatch(/a\?no_initial/);
           expect(result).toMatch(/namespace=test1/);
