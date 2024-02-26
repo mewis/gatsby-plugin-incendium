@@ -5,27 +5,43 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 exports.__esModule = true;
 exports.onRenderBody = void 0;
 
+var _taggedTemplateLiteralLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/taggedTemplateLiteralLoose"));
+
 var _react = _interopRequireDefault(require("react"));
 
+var _commonTags = require("common-tags");
+
+var _templateObject, _templateObject2, _templateObject3;
+
+var generateIncendiumScript = function generateIncendiumScript(pluginOptions, namespace) {
+  return (0, _commonTags.stripIndent)(_templateObject || (_templateObject = (0, _taggedTemplateLiteralLoose2.default)(["\n(function(w,d,s){\n  var f=d.getElementsByTagName(s)[0];\n  j=d.createElement(s);\n  j.async=true;\n  j.src='", "?no_initial=true", "", "", "';\n  f.parentNode.insertBefore(j,f);\n})(window,document,'script');"])), pluginOptions.url, pluginOptions.cookieless ? "&cookieless" : "", pluginOptions.debug ? "&debug" : "", namespace ? "&namespace=" + namespace : "");
+};
+
 var onRenderBody = function onRenderBody(_ref, pluginOptions) {
-  var setPostBodyComponents = _ref.setPostBodyComponents;
+  var setHeadComponents = _ref.setHeadComponents;
+  var inlineScripts = [];
 
   if (pluginOptions.namespaced && Object.keys(pluginOptions.namespaced).length > 0) {
-    setPostBodyComponents(Object.keys(pluginOptions.namespaced).map(function (namespace) {
+    Object.keys(pluginOptions.namespaced).forEach(function (namespace) {
+      var key = "incendium=" + namespace;
       var option = pluginOptions.namespaced[namespace];
-      return /*#__PURE__*/_react.default.createElement("script", {
+      inlineScripts.push( /*#__PURE__*/_react.default.createElement("script", {
+        key: key,
         dangerouslySetInnerHTML: {
-          __html: ['var head = document.head || document.getElementsByTagName("head")[0];', 'var script = document.createElement("script");', "script.setAttribute(\"src\", \"" + option.url + "?no_initial=true" + (option.nonInteractive ? "&non_interactive" : "") + (option.cookieless ? "&cookieless" : "") + (option.debug ? "&debug" : "") + (namespace !== "" ? "&namespace=" + namespace : "") + "\");", "head.appendChild(script);"].join(process.env.NODE_ENV === "production" ? "" : "\n")
+          __html: (0, _commonTags.oneLine)(_templateObject2 || (_templateObject2 = (0, _taggedTemplateLiteralLoose2.default)(["\n              ", ""])), generateIncendiumScript(option, namespace))
         }
-      });
-    }));
+      }));
+    });
   } else {
-    setPostBodyComponents([/*#__PURE__*/_react.default.createElement("script", {
+    inlineScripts.push( /*#__PURE__*/_react.default.createElement("script", {
+      key: "incendium",
       dangerouslySetInnerHTML: {
-        __html: ['var head = document.head || document.getElementsByTagName("head")[0];', 'var script = document.createElement("script");', "script.setAttribute(\"src\", \"" + pluginOptions.url + "?no_initial=true" + (pluginOptions.nonInteractive ? "&non_interactive" : "") + (pluginOptions.cookieless ? "&cookieless" : "") + (pluginOptions.debug ? "&debug" : "") + (pluginOptions.namespace ? "&namespace=" + pluginOptions.namespace : "") + "\");", "head.appendChild(script);"].join(process.env.NODE_ENV === "production" ? "" : "\n")
+        __html: (0, _commonTags.oneLine)(_templateObject3 || (_templateObject3 = (0, _taggedTemplateLiteralLoose2.default)(["\n          ", ""])), generateIncendiumScript(pluginOptions, pluginOptions.namespace))
       }
-    })]);
+    }));
   }
+
+  setHeadComponents(inlineScripts);
 };
 
 exports.onRenderBody = onRenderBody;
